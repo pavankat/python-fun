@@ -1,6 +1,10 @@
+#!/usr/bin/python
+
 # pip install splinter
 # brew install geckodriver
 from splinter import Browser
+import csv
+import time
 
 with Browser() as browser:
     # Visit URL
@@ -12,6 +16,12 @@ with Browser() as browser:
     # Interact with elements
     button.click()
     if browser.is_text_present('splinter.readthedocs.io'):
-        print("Yes, the official website was found!")
+        # Appending to csv files
+        with open('found.csv', 'a') as csvfile:
+            csvwriter = csv.writer(csvfile, delimiter=',')
+            csvwriter.writerow(['Yes the official website was found!', time.strftime("%m/%d/%Y")])
     else:
-        print("No, it wasn't found... We need to improve our SEO techniques")
+        # Appending to csv files
+        with open('found.csv', 'a') as csvfile:
+            csvwriter = csv.writer(csvfile, delimiter=',')
+            csvwriter.writerow(['No the official website was not found!', time.strftime("%m/%d/%Y")])
